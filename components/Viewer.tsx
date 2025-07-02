@@ -4,18 +4,20 @@
 import { useState } from "react";
 import { Uploader } from "../components/Uploader";
 import { OutputTable } from "../components/OutputTable";
-import { Worker, Viewer as PDFViewer } from "@react-pdf-viewer/core";
-import "@react-pdf-viewer/core/lib/styles/index.css";
+import { Document, Page, pdfjs } from "react-pdf";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js`;
 
 function Viewer() {
-  const [fileUrl, setFileUrl] = useState<string | null>("/sample.pdf");
+  const [file, setFile] = useState<string | null>("/sample.pdf");
 
   return (
-    <div style={{ height: "100%", width: "100%" }}>
-      {fileUrl ? (
-        <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js`}>
-          <PDFViewer fileUrl={fileUrl} />
-        </Worker>
+    <div className="h-full overflow-auto">
+      {file ? (
+        <Document file={file}>
+          <Page pageNumber={1} />
+        </Document>
       ) : (
         <p className="text-gray-500 text-center mt-10">No file selected</p>
       )}
