@@ -3,19 +3,26 @@
 const nextConfig = {
   webpack: (config) => {
     config.resolve.fallback = {
-      ...config.resolve.fallback,
-      canvas: false,
-      fs: false,
-      path: false,
-      os: false,
-    };
-    return config;
-  },
-};
-
-module.exports = nextConfig;
-
-// app/page.tsx
+  diff --git a//dev/null b/next.config.js
+index 0000000000000000000000000000000000000000..39c7b277b693c27a131cea2fd0ced03f9b4b90d5 100644
+--- a//dev/null
++++ b/next.config.js
+@@ -0,0 +1,15 @@
++/** @type {import('next').NextConfig} */
++const nextConfig = {
++  webpack: (config) => {
++    config.resolve.fallback = {
++      ...config.resolve.fallback,
++      canvas: false,
++      fs: false,
++      path: false,
++      os: false,
++    };
++    return config;
++  },
++};
++
++module.exports = nextConfig;
 "use client";
 
 import { useState } from "react";
