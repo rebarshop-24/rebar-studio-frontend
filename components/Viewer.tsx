@@ -2,20 +2,33 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { Uploader } from "../components/Uploader";
 import { OutputTable } from "../components/OutputTable";
-import { Document, Page, pdfjs } from "react-pdf";
+import { pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js`;
+// Configure PDF.js worker
+pdfjs.GlobalWorkerOptions.workerSrc =
+  "https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js";
+
+// Dynamically import Document and Page to avoid SSR bundling of native modules
+const Document = dynamic(
+  () => import('react-pdf').then((mod) => mod.Document),
+  { ssr: false }
+);
+const Page = dynamic(
+  () => import('react-pdf').then((mod) => mod.Page),
+  { ssr: false }
+);
 
 function Viewer() {
-  const [file, setFile] = useState<string | null>("/sample.pdf");
+  const [fileUrl, setFileUrl] = useState<string | null>("/sample.pdf");
 
   return (
     <div className="h-full overflow-auto">
-      {file ? (
-        <Document file={file}>
+      {fileUrl ? (
+        <Document file={fileUrl}>
           <Page pageNumber={1} />
         </Document>
       ) : (
