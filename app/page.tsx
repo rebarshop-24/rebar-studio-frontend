@@ -1,9 +1,9 @@
 // app/page.tsx
 "use client";
 
-import { Uploader } from "@/components/Uploader";
-import { Viewer } from "@/components/Viewer";
-import { OutputTable } from "@/components/OutputTable";
+import { Uploader } from "../components/Uploader";
+import { Viewer } from "../components/Viewer";
+import { OutputTable } from "../components/OutputTable";
 
 export default function Home() {
   return (
