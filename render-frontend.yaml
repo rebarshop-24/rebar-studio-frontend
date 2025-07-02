@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: rebar-studio-frontend
+    env: node
+    plan: free
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm run start"
+    rootDir: .
+    staticPublishPath: .next
+    autoDeploy: true
